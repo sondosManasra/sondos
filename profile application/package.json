@@ -1,0 +1,19 @@
+{
+  "name": "node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "consolidate": "^0.14.5",
+    "express-handlebars": "^3.0.0",
+    "handlebars-helpers": "^0.7.5",
+    "mongodb": "^2.2.16",
+    "mustache": "^2.3.0",
+    "passport-facebook": "^2.1.1"
+  }
+}
