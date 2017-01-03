@@ -1,0 +1,209 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above  3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Application -->
+    <link href="/css/htmlstyle.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<script>
+    function statusChangeCallback(response) {
+        console.log('statusChangeCallback');
+        console.log(response);
+        if (response.status === 'connected') {
+            testAPI();
+        } else if (response.status === 'not_authorized') {
+            document.getElementById('status').innerHTML = 'Please log ' +
+                'into this app.';
+        } else {
+            document.getElementById('status').innerHTML = 'Please log ' +
+                'into Facebook.';
+        }
+    }function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+        });
+    }
+
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '163057404175039',
+            cookie     : true,  // enable cookies to allow the server to access
+                                // the session
+            xfbml      : true,  // parse social plugins on this page
+            version    : 'v2.8' // use graph api version 2.8
+        });
+        FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+        });
+
+    };
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '163057404175039',
+            xfbml      : true,
+            version    : 'v2.0'
+        });
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+
+    function basicAPIRequest() {
+        FB.api('/me',
+            {fields: "id,about,age_range,picture,birthday,context,email,first_name,gender,hometown,link,location,middle_name,name,timezone,website,work"},
+            function(response) {
+                console.log('API response', response);
+                $("#fb-profile-pic").append('<img src="' + response.picture.data.url + '"> ');
+                $("#name").append(response.name);
+                $("#user-id").append(response.id);
+                $("#gender").append(response.gender);
+                $("#birthday").append(response.birthday);
+                $("#location").append(response.location.name);
+
+
+            }
+        );
+    }
+    jQuery(document).ready(function(){
+        jQuery("#load").click(function(e){
+            if(typeof(FB) == "undefined") {
+                alert("Facebook SDK not yet loaded please wait.")
+            }
+            FB.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+                    console.log('Logged in.');
+                    basicAPIRequest();
+
+                }
+                else {
+                    FB.login();
+                }
+            });
+        });
+
+    });
+</script>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <ul class="nav navbar-nav navbar-left">
+                <li><a >Facebook profile viewer</a></li>
+
+            </ul>
+        </div>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Home</a></li>
+            <li><a href="/profile">My profile</a></li>
+        </ul>
+    </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+    <p> Login with Facebook</p>
+    <div class="fb-login-button" data-scope="email,user_birthday,user_hometown,user_location,user_website,user_work_history,user_about_me
+    " data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div>
+     <p> click load data</p>
+    <button id='load' class="btn btn-success">Load data</button>
+    </div>
+    </div>
+
+</html>
+<div class="container">
+    <div class="row">
+
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">facebook profile</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-3 " align="center">
+                        <div id="fb-profile-pic"></div></div>
+                        <div class=" col-md-9 col-lg-9 ">
+                            <table class="table table-user-information">
+                                <tbody>
+                                <tr>
+                                    <td>User name:</td>
+                                    <td id="name"></td>
+                                </tr>
+                                <tr>
+                                    <td>Location:</td>
+                                    <td id="location"></td>
+                                </tr>
+
+                                   <tr>
+                                    <td>ID:</td>
+                                    <td id="user-id"></td>
+                                </tr>
+                                <tr>
+                                    <td>Birthday:</td>
+                                    <td id="birthday"></td>
+                                </tr>
+                                <tr>
+                                    <td>Gender:</td>
+                                    <td id="gender"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        </div>
+          <div class="container">
+                        <div class="row">
+
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Work History</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table table-user-information">
+                                        <tbody>
+                                        <tr>
+                                            <td id="work"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+       </div>
+       </div>

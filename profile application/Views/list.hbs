@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <h1 class="text-center">Welcome to Profile tool application</h1>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above  3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Bootstrap -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Application -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/sty.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+    <script src="/user.js"></script>
+    <script src="/js/npm.js"></script>
+</head>
+<body>
+
+<div class="row">
+  <div class="col-lg-6">
+  <form action="/search" method="post"  >
+    <div class="input-group">
+      <span class="input-group-btn">
+                <button type="submit" class="btn btn-success">Go</button>
+      </span>
+      <input type="text" id='searchInput' name='searchInput'class="form-control" placeholder="Search for...">
+   </form>
+    </div>
+  </div>
+
+</div>
+<div class="container">
+
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+            <table border="2" style= "background-color: #84ed86; color: #761a9b; margin: 0 auto;" >
+                <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>phone#</th>
+                    <th>Edit icon</th>
+                    <th>Delete icon</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr class="user" >
+                    {{# each user}}
+                    <td>
+                        <div>
+                            <a href="/loginfb">{{this.name}}</a>
+                        </div>
+                    </td>
+                    <td>{{this.email}}</td>
+                    <td>{{this.phone}}</td>
+
+                    <td>
+                        <div>
+                            <a class="glyphicon glyphicon-pencil" href='/updateuser'aria-hidden="true" ></a>
+                        </div>
+
+
+                    </td>
+                    <td>
+                        <div>
+                            <a id="delete_id" href='/delete'class="glyphicon glyphicon-remove" aria-hidden="true"></a>
+                        </div>
+                    </td>
+
+                </tr>
+                {{/each}}
+
+                </tbody>
+            </table>
+            <div>
+                <a class=" btn btn-success btn-md" id="button_id" href="/add">Add User</a>
+            </div>
+
+        </div>
+
+        <div class="col-lg-3"></div>
+    </div>
+</div>
+
+<script src="/js/jquery-3.1.1.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>
+
